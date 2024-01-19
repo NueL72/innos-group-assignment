@@ -1,14 +1,23 @@
+<!-- if (!empty($_GET['id'])) {
+    $sql = "SELECT * FROM `admin` WHERE `id`=" . $_GET['id'] . ";";
+    $query = mysqli_query($conn, $sql);
+    $result = mysqli_fetch_assoc($query);
+
+
+?> -->
+
 <?php
     require_once ("config.php");
 
     session_start();
     
     if(isset($_POST['submit'])){
-        $messageTitle = $_POST['Messagetitle'];
         $messageDescr = $_POST['Messagedescription'];
         $messageContent = $_POST['messagecontent'];
+        $messageReply = $_POST['messageReply'];
+        $Title = $_POST['title'];
 
-        $sql = "INSERT INTO `messages`(`Title`, `description`, `content`, `created_at`, `Citizen_Id`) VALUES ('$messageTitle','$messageDescr','$messageContent','".date('Y-m-d H:i:s')."','".$_SESSION['id']."')";
+        $sql = "INSERT INTO `reply`(`description`, `content`, `reply`, `Title`)  VALUES ('$messageDescr','$messageContent','$messageReply','$Title')";
         $query = mysqli_query($conn,$sql);
 
         $status = "";
@@ -16,7 +25,30 @@
         if($query){
             $status = "success";}
     }
+
+    if (!empty($_GET['id'])) {
+        $sql = "SELECT * FROM `messages` WHERE `id`=" . $_GET['id'] . ";";
+        $query = mysqli_query($conn, $sql);
+        $result = mysqli_fetch_assoc($query);
+    
+    
 ?>
+
+<!-- if (isset($_POST['Add'])) {
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $role = $_POST['role'];
+
+    $sql = "UPDATE `admin` SET `id`='" . $id . "',`name`='" . $name . "',`email`='" . $email . "',`password`='" . $password . "',`role`='1' WHERE id='" . $_GET['id'] . "';";
+    $query = mysqli_query($conn, $sql);
+    // $results = mysqli_fetch_all($query);
+    if ($query == true) {
+        header('Location:admin.php');
+    }
+} -->
+
 
 
 <!DOCTYPE html>
@@ -101,34 +133,36 @@ h3 {
     <section>
 
         <center>
-            <h3>Welcome!! You can Now start new Conversation</h3>
+            <h3>Welcome! here you can reply the sms</h3>
             <hr>
         </center>
         <center>
             <form action="" method="post">
                 <div class="card mt-4" style="width:700px;">
                     <div class="card-header" style="font-weight: bolder;">
-                        Create New Message
+                        reply Citizen Message
                     </div>
 
                     <div class="card-body">
                         <div class="form-floating mb-3">
                             <!-- <input type="text" class="form-control" name="name" id="floatingInput"> -->
-                            <div style="float:left">
-                                Message Title:
-                                <input type="radio" name="Messagetitle" value="infrastructure" required> Infrastructure
-                                <input type="radio" name="Messagetitle" value="health" required> healthCare
-                                <input type="radio" name="Messagetitle" value="education" required> Education
-                            </div>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" name="Messagedescription" style="margin-top:50px" required>
+                            <input type="text" class="form-control" name="Messagedescription" value="<?php echo $result['description']; ?>" style="margin-top:50px" readonly>
                             <label>Message Description</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <textarea name="messagecontent" class="form-control" id="" cols="10" rows="10" required></textarea>
-                            <label for="">write message..</label>
+                        <input type="text" class="form-control" name="Messagedescription" value="<?php echo $result['content']; ?>" style="margin-top:50px" readonly>
+                            <label for="">message content</label>
                         </div>
+
+                        <div class="form-floating mb-3">
+                            <textarea name="messageReply" class="form-control" id="" cols="10" rows="10" required></textarea>
+                            <input type="hidden" name="title" value="<?php echo $result['Title']; ?>">
+                            <label for="">reply message..</label>
+                        </div>
+
+
 
                     </div>
 
@@ -158,3 +192,4 @@ h3 {
 </body>
 
 </html>
+<?php } ?>
