@@ -1,11 +1,3 @@
-<!-- if (!empty($_GET['id'])) {
-    $sql = "SELECT * FROM `admin` WHERE `id`=" . $_GET['id'] . ";";
-    $query = mysqli_query($conn, $sql);
-    $result = mysqli_fetch_assoc($query);
-
-
-?> -->
-
 <?php
     require_once ("config.php");
 
