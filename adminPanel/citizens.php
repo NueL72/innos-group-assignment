@@ -1,3 +1,15 @@
+<?php
+  
+  require_once ("../config.php");
+
+  $sql = "SELECT * FROM `Citizens`";
+  $query = mysqli_query($conn,$sql);
+
+  $output = mysqli_fetch_all($query);
+
+
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,28 +19,28 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
-    <link rel="stylesheet" href="assets/bootstrap3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/bootstrap3/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="assets/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href="assets/plugins/iCheck/flat/blue.css">
+    <link rel="stylesheet" href="../assets/plugins/iCheck/flat/blue.css">
     <!-- Morris chart -->
-    <link rel="stylesheet" href="assets/plugins/morris/morris.css">
+    <link rel="stylesheet" href="../assets/plugins/morris/morris.css">
     <!-- jvectormap -->
-    <link rel="stylesheet" href="assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+    <link rel="stylesheet" href="../assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
     <!-- Date Picker -->
-    <link rel="stylesheet" href="assets/plugins/datepicker/datepicker3.css">
+    <link rel="stylesheet" href="../assets/plugins/datepicker/datepicker3.css">
     <!-- Daterange picker -->
-    <link rel="stylesheet" href="assets/plugins/daterangepicker/daterangepicker-bs3.css">
+    <link rel="stylesheet" href="../assets/plugins/daterangepicker/daterangepicker-bs3.css">
     <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href="assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <link rel="stylesheet" href="../assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -464,64 +476,44 @@
           </ol>
         </section>
 
-        <!-- Main content -->
         <section class="content">
           <!-- Small boxes (Stat box) -->
-          <div class="row">
-            <div class="col-lg-3 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-aqua">
-                <div class="inner">
-                  <h3>00</h3>
-                  <p>Citizens</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-person-add"></i>
-                </div>
-                <a href="../representative.php" class="small-box-footer">View<i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div><!-- ./col -->
-            <div class="col-lg-3 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-green">
-                <div class="inner">
-                  <h3>53<sup style="font-size: 20px">%</sup></h3>
-                  <p>Representatives</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-person-add"></i>
-                </div>
-                <a href="#" class="small-box-footer">view <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div><!-- ./col -->
-            <div class="col-lg-3 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-yellow">
-                <div class="inner">
-                  <h3>44</h3>
-                  <p>Messages</p>
-                </div>
-                <div class="icon">
-                  <i class="fa fa-envelope"></i>
-                </div>
-                <a href="#" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div><!-- ./col -->
-            <div class="col-lg-3 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-red">
-                <div class="inner">
-                  <h3>65</h3>
-                  <p>Unique Visitors</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-pie-graph"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div><!-- ./col -->
-          </div><!-- /.row -->
-          <!-- Main row -->
+          <center>
+            <table style="border: 2px;border-style:solid;">
+                 <thead style="border: 2px;border-style:solid;">
+                   <th>
+                     <tr>ID</tr>
+                   </th>
+   
+                   <th>
+                     <tr>Username</tr>
+                   </th>
+   
+                   <th>
+                     <tr>Phone</tr>
+                   </th>
+   
+                   <th>
+                     <tr>Email</tr>
+                   </th>
+   
+                   <th>
+                     <tr>District</tr>
+                   </th>
+   
+                   <th>
+                     <tr>password</tr>
+                   </th>
+                 </thead>
+
+                 <tbody>
+                  <td>
+                    <tr><?php echo $output['ID'] ?></tr>
+                  </td>
+                 </tbody>
+            </table>
+          </center>
+
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
       <footer class="main-footer">
@@ -530,7 +522,6 @@
         </div>
         <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
       </footer>
-
       <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">
         <!-- Create the tabs -->
@@ -698,7 +689,7 @@
     </div><!-- ./wrapper -->
 
     <!-- jQuery 2.1.4 -->
-    <script src="assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="../assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -706,33 +697,33 @@
       $.widget.bridge('uibutton', $.ui.button);
     </script>
     <!-- Bootstrap 3.3.5 -->
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
     <!-- Morris.js charts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    <script src="assets/plugins/morris/morris.min.js"></script>
+    <script src="../assets/plugins/morris/morris.min.js"></script>
     <!-- Sparkline -->
-    <script src="assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script src="../assets/plugins/sparkline/jquery.sparkline.min.js"></script>
     <!-- jvectormap -->
-    <script src="assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-    <script src="assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="../assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="../assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
     <!-- jQuery Knob Chart -->
-    <script src="assets/plugins/knob/jquery.knob.js"></script>
+    <script src="../assets/plugins/knob/jquery.knob.js"></script>
     <!-- daterangepicker -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-    <script src="assets/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="../assets/plugins/daterangepicker/daterangepicker.js"></script>
     <!-- datepicker -->
-    <script src="assets/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="../assets/plugins/datepicker/bootstrap-datepicker.js"></script>
     <!-- Bootstrap WYSIHTML5 -->
-    <script src="assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    <script src="../assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
     <!-- Slimscroll -->
-    <script src="assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="../assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
-    <script src="assets/plugins/fastclick/fastclick.min.js"></script>
+    <script src="../assets/plugins/fastclick/fastclick.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="assets/dist/js/app.min.js"></script>
+    <script src="../assets/dist/js/app.min.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="assets/dist/js/pages/dashboard.js"></script>
+    <script src="../assets/dist/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="assets/dist/js/demo.js"></script>
+    <script src="../assets/dist/js/demo.js"></script>
   </body>
 </html>
