@@ -2,18 +2,19 @@
     require_once ("config.php");
 
     session_start();
-
-    // $_SESSION['id'] = mysqli_insert_id($conn);
-
+    
     if(isset($_POST['submit'])){
-        $messageTitle = $_POST['Message title'];
-        $messageDescr = $_POST['Message Description'];
-        $messageContent = $_POST['Message content'];
+        $messageTitle = $_POST['Messagetitle'];
+        $messageDescr = $_POST['Messagedescription'];
+        $messageContent = $_POST['messagecontent'];
 
-        $sql = "INSERT INTO `messages`(`Title`, `description`, `content`, `created_at`, `Citizen_Id`) VALUES ('$messageTitle','$messageDescr','$messageContent','".date('Y-m-d')."','".$_SESSION['id']."')";
+        $sql = "INSERT INTO `messages`(`Title`, `description`, `content`, `created_at`, `Citizen_Id`) VALUES ('$messageTitle','$messageDescr','$messageContent','".date('Y-m-d H:i:s')."','".$_SESSION['id']."')";
         $query = mysqli_query($conn,$sql);
 
-        if($query)
+        $status = "";
+
+        if($query){
+            $status = "success";}
     }
 ?>
 
@@ -115,23 +116,24 @@ h3 {
                             <!-- <input type="text" class="form-control" name="name" id="floatingInput"> -->
                             <div style="float:left">
                                 Message Title:
-                                <input type="radio" name="Message title" value="opinions"> Opinions
-                                <input type="radio" name="Message title" value="challenges"> Challenges
+                                <input type="radio" name="Messagetitle" value="opinions" required> Opinions
+                                <input type="radio" name="Messagetitle" value="challenges" required> Challenges
                             </div>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" name="Message description" style="margin-top:50px">
+                            <input type="text" class="form-control" name="Messagedescription" style="margin-top:50px" required>
                             <label>Message Description</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <textarea name="message content" class="form-control" id="" cols="10" rows="10"></textarea>
+                            <textarea name="messagecontent" class="form-control" id="" cols="10" rows="10" required></textarea>
                             <label for="">write message..</label>
                         </div>
 
                     </div>
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-success" style="float: right;">submit</button>
+                        <button type="submit" name="submit" class="btn btn-success"
+                            style="float: right;">submit</button>
                     </div>
                 </div>
 
@@ -139,6 +141,8 @@ h3 {
         </center>
     </section>
 
+    <?php
+    if($status == "success"){?>
     <script>
     Swal.fire({
         title: "Good job!",
@@ -146,6 +150,10 @@ h3 {
         icon: "success"
     });
     </script>
+    <?php
+        
+    }
+    ?>
 </body>
 
 </html>
