@@ -2,10 +2,40 @@
   
   require_once ("../config.php");
 
-  $sql = "SELECT * FROM `Representatives`";
-  $query = mysqli_query($conn,$sql);
-  $results = mysqli_fetch_all($query);
+    if(!isset($_SESSION['user'])){
+        session_start();
+    }
 
+    if(isset($_POST['submit'])){
+
+        $username = $_POST['name'];
+        $email = $_POST['email'];
+        $phone = $_POST['phoneNumber'];
+        $password = $_POST['password'];
+        $category = $_POST['category'];
+        $department = $_POST['department'];
+        $role = $_POST['role'];
+
+        $sql = "INSERT INTO `Representatives`(`username`, `email`, `password`, `phone`, `category`, `Department`) VALUES ('$username','$email','$password','$phone','$category','$department')";
+        echo $sql;
+        $query = mysqli_query($conn,$sql);
+        
+        if($role=="infrastructure" || $role=="education" || $role=="health" && $query){
+            $sql2 = "INSERT INTO `login`(`username`, `password`,`role`) VALUES ('$username','$password','$role')";
+            echo $sql2;
+            $query2 = mysqli_query($conn, $sql2);
+            
+            if($query2){
+
+                $_SESSION['user'] = $username;
+                $_SESSION['role'] = $role;
+                $_SESSION['id'] = mysqli_insert_id($conn);
+                echo $_SESSION['id'];
+
+                header("location:representatives.php");
+            }
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -40,6 +70,8 @@
     <link rel="stylesheet" href="../assets/plugins/daterangepicker/daterangepicker-bs3.css">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="../assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -508,74 +540,64 @@
 
             <section class="content">
                 <!-- Small boxes (Stat box) -->
-                <div class="content align-self-md-center">
-                    <div class="row p-xl-5" style="margin-left: 5px;">
-                        <div class="col-md-6" style="padding-bottom: 30px;">
-                            <div class="card card-danger" style="position: flex; width:1000px;">
-                                <div class="card-header" style="background:white; color:black;">
-                                    <h3 class="card-title">List of Clients</h3>
-                                </div>
-                                <div class="card-body">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th style="padding-left: 30px;">Username</th>
-                                                <th style="padding-left: 40px;">email</th>
-                                                <th style="padding-left: 200px;">password</th>
-                                                <th style="padding-left: 100px;">phone</th>
-                                                <th style="padding-left: 100px;">category</th>
-                                                <th style="padding-left: 100px;">Department</th>
-                                            </tr>
-
-                                        <tbody>
-
-                                            <?php
-                                        for ($i = 0; $i < sizeof($results); $i++) { ?>
-                                            <tr>
-                                                <td><?php echo $results[$i][0] ?></td>
-                                                <td style="padding-left: 30px;"><?php echo $results[$i][1] ?></td>
-                                                <td style="padding-left: 30px;"><?php echo $results[$i][2] ?></td>
-                                                <td style="padding-left: 40px;"><?php echo $results[$i][3] ?></td>
-                                                <td style="padding-left: 200px;"><?php echo $results[$i][4] ?></td>
-                                                <td style="padding-left: 200px;"><?php echo $results[$i][5] ?></td>
-                                                <td style="padding-left: 200px;"><?php echo $results[$i][6] ?></td>
-                                                <td style="padding-left: 100px;">
-                                                    <a href="edituser.php?id=<?php echo $results[$i][0]; ?>"
-                                                        class="fas fa-edit"></a>
-                                                </td>
-                                                <td style="padding-left: 100px;">
-                                                    <a href="delusers.php?id=<?php echo $results[$i][0]; ?>"
-                                                        class="btn btn-outline-danger">
-                                                        del
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <?php } ?>
-                                        </tbody>
-
-                                        </thead>
-                                    </table>
-                                    <center style="padding-top:20px">
-                                        <a href="newrepre.php" class="btn btn-outline-danger">Add+</a>
-                                        <a href="admin.php" class="btn btn-outline-danger">close</a>
-                                    </center>
-
-                                    <!-- /.form group -->
-
-                                    </form>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-
-
-
-                        </div>
+                <form action="" method="post">
+     
+            <div class="card container" style="width: 700px; margin-top:3%">
+                <div class="card-header" style="padding-bottom: 20px; font-weight:bold;">
+                    Representative regsitration form
+                </div>
+                <div class="card-body">
+                    <div class="form-floating mb-3" style="padding-bottom: 20px;">
+                        <input type="text" class="form-control" name="name" id="floatingInput" placeholder="username">
+                        <input type="hidden" name="id">
+                    </div>
+                    <div class="form-floating mb-3" style="padding-bottom: 20px;">
+                        <input type="email" class="form-control" name="email" id="floatingPassword" placeholder="email">
 
                     </div>
+                    <div class="form-floating mb-3" style="padding-bottom: 20px;">
+                        <!-- <input type="" class="form-control" name="district" id="floatingPassword" placeholder="Password"> -->
+                        <select name="category" id="">
+                            <option value="">select category</option>
+                            <option value="DC">DC</option>
+                            <option value="RC">RC</option>
+                            <option value="parliamentarian">parliamentarian</option>
+                        </select>
 
+                        <select name="department" id="">
+                            <option value="">select the department</option>
+                            <option value="health">Health</option>
+                            <option value="education">Education</option>
+                            <option value="infrastructure">Infrastructure</option>
+                        </select>
+
+                        <select name="role">
+                            <option value="">select role</option>
+                            <option value="health">Health</option>
+                            <option value="education">Education</option>
+                            <option value="infrastructure">Infrastructure</option>
+                        </select>
+                    </div>
+                    <div class="form-floating mb-3" style="padding-bottom: 20px;">
+                        <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password">
+        
+                    </div>
+                    <div class="form-floating mb-3" style="display: flex; flex-direction:row;">
+                        <button disabled="disabled" style="float: left; font-weight:bold;">+255</button>
+                        
+                        <input type="tel" id="phoneNumber" class="form-control" name="phoneNumber" placeholder="693-159-003"
+                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" required>
+                            <!-- <label style="padding-left: 70px;">follow this format 693-159-003</label> -->
+                    </div>
                 </div>
+
+                <center>
+                    <div class="card-footer" style="padding-top: 20px;">
+                        <button type="submit" name="submit" class="btn btn-success" style="margin-left: 10px;">Register</button>
+                    </div>
+                </div>
+                </center>
+    </form>
             </section>
         </div><!-- /.content-wrapper -->
         <footer class="main-footer">

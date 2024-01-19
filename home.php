@@ -116,8 +116,9 @@ h3 {
                             <!-- <input type="text" class="form-control" name="name" id="floatingInput"> -->
                             <div style="float:left">
                                 Message Title:
-                                <input type="radio" name="Messagetitle" value="opinions" required> Opinions
-                                <input type="radio" name="Messagetitle" value="challenges" required> Challenges
+                                <input type="radio" name="Messagetitle" value="Infrastructure" required> Infrastructure
+                                <input type="radio" name="Messagetitle" value="health" required> healthCare
+                                <input type="radio" name="Messagetitle" value="Education" required> Education
                             </div>
                         </div>
                         <div class="form-floating mb-3">

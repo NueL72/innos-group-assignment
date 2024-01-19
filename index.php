@@ -47,8 +47,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="boostrap/css/bootstrap.css">
-    <script src="bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="assets/boostrap5/css/bootstrap.css">
+    <script src="assets/bootstrap5/js/bootstrap.js"></script>
 </head>
 
 <body>

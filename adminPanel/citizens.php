@@ -4,9 +4,7 @@
 
   $sql = "SELECT * FROM `Citizens`";
   $query = mysqli_query($conn,$sql);
-
-  $output = mysqli_fetch_all($query);
-
+  $results = mysqli_fetch_all($query);
 
 ?>
 
@@ -478,43 +476,71 @@
 
         <section class="content">
           <!-- Small boxes (Stat box) -->
-          <center>
-            <table style="border: 2px;border-style:solid;">
-                 <thead style="border: 2px;border-style:solid;">
-                   <th>
-                     <tr>ID</tr>
-                   </th>
-   
-                   <th>
-                     <tr>Username</tr>
-                   </th>
-   
-                   <th>
-                     <tr>Phone</tr>
-                   </th>
-   
-                   <th>
-                     <tr>Email</tr>
-                   </th>
-   
-                   <th>
-                     <tr>District</tr>
-                   </th>
-   
-                   <th>
-                     <tr>password</tr>
-                   </th>
-                 </thead>
+          <div class="content align-self-md-center">
+                <div class="row p-xl-5" style="margin-left: 5px;">
+                    <div class="col-md-6" style="padding-bottom: 30px;">
+                        <div class="card card-danger" style="position: flex; width:1000px;">
+                            <div class="card-header" style="background:white; color:black;">
+                                <h3 class="card-title">List of Clients</h3>
+                            </div>
+                            <div class="card-body">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th style="padding-left: 30px;">Username</th>
+                                            <th style="padding-left: 40px;">phone</th>
+                                            <th style="padding-left: 200px;">email</th>
+                                            <th style="padding-left: 100px;">password</th>
+                                            <th style="padding-left: 100px;">district</th>
+                                        </tr>
 
-                 <tbody>
-                  <td>
-                    <tr><?php echo $output['ID'] ?></tr>
-                  </td>
-                 </tbody>
-            </table>
-          </center>
+                                    <tbody>
 
-        </section><!-- /.content -->
+                                        <?php
+                                        for ($i = 0; $i < sizeof($results); $i++) { ?>
+                                            <tr>
+                                                <td><?php echo $results[$i][0] ?></td>
+                                                <td style="padding-left: 30px;"><?php echo $results[$i][1] ?></td>
+                                                <td style="padding-left: 30px;"><?php echo $results[$i][2] ?></td>
+                                                <td style="padding-left: 40px;"><?php echo $results[$i][3] ?></td>
+                                                <td style="padding-left: 200px;"><?php echo $results[$i][4] ?></td>
+                                                <td style="padding-left: 200px;"><?php echo $results[$i][5] ?></td>
+                                                <td style="padding-left: 200px;"><?php echo $results[$i][6] ?></td>
+                                                <td style="padding-left: 100px;">
+                                                    <a href="edituser.php?id=<?php echo $results[$i][0]; ?>" class="fas fa-edit"></a>
+                                                </td>
+                                                <td style="padding-left: 100px;">
+                                                    <a href="delusers.php?id=<?php echo $results[$i][0]; ?>" class="btn btn-outline-danger">
+                                                        del
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+
+                                    </thead>
+                                </table>
+                                <center style="padding-top:20px">
+                                    <a href="admin.php" class="btn btn-outline-danger">close</a>
+                                </center>
+
+                                <!-- /.form group -->
+
+                                </form>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
       </div><!-- /.content-wrapper -->
       <footer class="main-footer">
         <div class="pull-right hidden-xs">
