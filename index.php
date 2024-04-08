@@ -28,7 +28,7 @@
                 $_SESSION['user'] = $username;
                 $_SESSION['role'] = $role;
                 $_SESSION['id'] = mysqli_insert_id($conn);
-                echo $_SESSION['id'];
+                // echo $_SESSION['id'];
 
                 header("location:home.php");
             }

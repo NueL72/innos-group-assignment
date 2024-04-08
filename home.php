@@ -1,21 +1,29 @@
 <?php
-    require_once ("config.php");
+session_start();
+    include_once("config.php");
 
-    session_start();
-    
+    // if (isset($_SESSION['role'])) {
+        
+    // }
+    // echo $_SESSION['id'];
     if(isset($_POST['submit'])){
         $messageTitle = $_POST['Messagetitle'];
         $messageDescr = $_POST['Messagedescription'];
         $messageContent = $_POST['messagecontent'];
-
+        // echo "dsdds";
         $sql = "INSERT INTO `messages`(`Title`, `description`, `content`, `created_at`, `Citizen_Id`) VALUES ('$messageTitle','$messageDescr','$messageContent','".date('Y-m-d H:i:s')."','".$_SESSION['id']."')";
+        
+        // echo $sql;
         $query = mysqli_query($conn,$sql);
 
         $status = "";
 
         if($query){
-            $status = "success";}
+            $status = "success";
+        }
+       
     }
+    
 ?>
 
 
@@ -143,7 +151,7 @@ h3 {
     </section>
 
     <?php
-    if($status == "success"){?>
+    if($status != ""){?>
     <script>
     Swal.fire({
         title: "Good job!",
